@@ -6,11 +6,22 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ScriptOnce,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const prefsScript = `(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  var l=localStorage.getItem('locale')||'en';
+  var r=document.documentElement;
+  if(t==='dark')r.classList.add('dark');
+  r.setAttribute('lang',l);
+  r.setAttribute('dir',l==='ar'?'rtl':'ltr');
+}catch(e){}})();`;
 
 function NotFoundComponent() {
   return (
@@ -77,19 +88,52 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Your Name — Editorial Portfolio" },
+      {
+        name: "description",
+        content:
+          "Senior product engineer crafting calm, considered software. Selected work, experience, and writing.",
+      },
+      { name: "author", content: "Your Name" },
+      { property: "og:title", content: "Your Name — Editorial Portfolio" },
+      {
+        property: "og:description",
+        content:
+          "Senior product engineer crafting calm, considered software. Selected work, experience, and writing.",
+      },
+      { property: "og:site_name", content: "Your Name" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Your Name",
+          jobTitle: "Senior Product Engineer",
+          url: "/",
+        }),
       },
     ],
   }),
@@ -101,8 +145,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <ScriptOnce>{prefsScript}</ScriptOnce>
         <HeadContent />
       </head>
       <body>
@@ -118,8 +163,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <main>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </main>
     </QueryClientProvider>
   );
 }
