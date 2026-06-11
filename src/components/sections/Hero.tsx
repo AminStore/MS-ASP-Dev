@@ -64,22 +64,22 @@ export function Hero() {
               </div>
 
               {/* Action buttons - WhatsApp and Resume */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-row gap-3">
                 {/* WhatsApp Hire Button */}
                 <a
                   href="https://wa.me/201067358073?text=Hi%20Mostafa%2C%20I%27m%20interested%20in%20hiring%20you"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${COMPONENTS.buttonPrimary} w-full justify-center text-center`}
+                  className={`${COMPONENTS.buttonPrimary} flex-1 justify-center text-center`}
                 >
-                  <span>Hire me on WhatsApp</span>
+                  <span>Hire me</span>
                 </a>
 
                 {/* Resume Download Button */}
                 <a
                   href="/resume.pdf"
                   download
-                  className={`${COMPONENTS.buttonSecondary} w-full justify-center text-center`}
+                  className={`${COMPONENTS.buttonSecondary} flex-1 justify-center text-center`}
                 >
                   <span>Download Resume</span>
                 </a>
