@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useEffect } from "react";
 
 export type Theme = "light" | "dark";
 export type Locale = "en" | "ar";
@@ -26,21 +27,9 @@ function applyToDocument(theme: Theme, locale: Locale) {
   }
 }
 
-function readInitial(): { theme: Theme; locale: Locale } {
-  if (typeof document === "undefined") {
-    return { theme: "light", locale: "en" };
-  }
-  const root = document.documentElement;
-  const theme: Theme = root.classList.contains("dark") ? "dark" : "light";
-  const locale: Locale = root.getAttribute("dir") === "rtl" ? "ar" : "en";
-  return { theme, locale };
-}
-
-const initial = readInitial();
-
 export const usePreferences = create<State>((set, get) => ({
-  theme: initial.theme,
-  locale: initial.locale,
+  theme: "light",
+  locale: "en",
   setTheme: (theme) => {
     set({ theme });
     applyToDocument(theme, get().locale);
@@ -52,3 +41,18 @@ export const usePreferences = create<State>((set, get) => ({
   },
   toggleLocale: () => get().setLocale(get().locale === "en" ? "ar" : "en"),
 }));
+
+/**
+ * Hydrate the preferences store from the actual document/localStorage
+ * after mount. Keeps SSR markup deterministic (light/en) so React 19 does
+ * not throw a hydration mismatch when the inline prefs script has already
+ * flipped <html> to dark or rtl.
+ */
+export function useHydratePreferences() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const theme: Theme = root.classList.contains("dark") ? "dark" : "light";
+    const locale: Locale = root.getAttribute("dir") === "rtl" ? "ar" : "en";
+    usePreferences.setState({ theme, locale });
+  }, []);
+}
