@@ -18,14 +18,15 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+    minify: "terser",
   },
   resolve: {
     alias: {
       "@": "/src",
     },
   },
-  ssr: {
-    noExternal: [],
+  define: {
+    "process.env.NODE_ENV": '"production"',
   },
   optimizeDeps: {
     esbuildOptions: {
