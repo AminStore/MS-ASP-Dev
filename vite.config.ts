@@ -15,10 +15,23 @@ export default defineConfig({
     rollupOptions: {
       input: "index.html",
     },
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   resolve: {
     alias: {
       "@": "/src",
+    },
+  },
+  ssr: {
+    noExternal: [],
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      define: {
+        global: "globalThis",
+      },
     },
   },
 });
