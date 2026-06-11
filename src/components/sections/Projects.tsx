@@ -18,7 +18,7 @@ export function Projects() {
   const visible = active === t.projects.all ? items : items.filter((p) => p.category === active);
 
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-6 py-32 md:px-10">
+    <section id="projects" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
       <SectionLabel eyebrow={t.projects.eyebrow} title={t.projects.title} />
 
       <div className="mb-12 flex flex-wrap gap-2">
@@ -52,23 +52,26 @@ export function Projects() {
             <Link
               to="/projects/$slug"
               params={{ slug: p.slug }}
-              className="grid grid-cols-12 items-center gap-4 py-8 transition hover:bg-card/50"
+              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 py-6 transition hover:bg-card/50 md:grid-cols-12 md:py-8"
             >
-              <span className="col-span-1 text-xs text-muted-foreground">
+              <span className="text-xs text-muted-foreground md:col-span-1">
                 0{i + 1}
               </span>
-              <span className="col-span-7 md:col-span-5">
-                <span className="block font-display text-3xl leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1 md:text-5xl">
+              <span className="min-w-0 md:col-span-5">
+                <span className="block truncate font-display text-2xl leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1 sm:text-3xl md:text-5xl">
                   {p.name}
+                </span>
+                <span className="mt-1 block text-xs text-muted-foreground md:hidden">
+                  {p.summary} · {p.year}
                 </span>
               </span>
               <span className="hidden text-sm text-muted-foreground md:col-span-4 md:block">
                 {p.summary}
               </span>
-              <span className="col-span-2 text-end text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-1">
+              <span className="hidden text-end text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-1 md:block">
                 {p.year}
               </span>
-              <span className="col-span-2 flex items-center justify-end md:col-span-1">
+              <span className="flex shrink-0 items-center justify-end md:col-span-1">
                 <ArrowUpRight className="size-5 text-muted-foreground transition group-hover:text-foreground" />
               </span>
             </Link>
