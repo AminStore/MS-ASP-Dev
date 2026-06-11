@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { useHydratePreferences } from "../store/preferences";
 
 const prefsScript = `(function(){try{
   var t=localStorage.getItem('theme');
@@ -160,6 +161,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useHydratePreferences();
 
   return (
     <QueryClientProvider client={queryClient}>
