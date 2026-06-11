@@ -5,7 +5,7 @@ import { SectionLabel } from "./SectionLabel";
 export function Experience() {
   const t = useT();
   return (
-    <section id="experience" className="mx-auto max-w-7xl px-6 py-32 md:px-10">
+    <section id="experience" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
       <SectionLabel eyebrow={t.experience.eyebrow} title={t.experience.title} />
       <ol className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-1">
         {t.experience.items.map((it, i) => (

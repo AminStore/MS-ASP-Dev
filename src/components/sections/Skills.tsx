@@ -5,7 +5,7 @@ import { SectionLabel } from "./SectionLabel";
 export function Skills() {
   const t = useT();
   return (
-    <section id="skills" className="mx-auto max-w-7xl px-6 py-32 md:px-10">
+    <section id="skills" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
       <SectionLabel eyebrow={t.skills.eyebrow} title={t.skills.title} />
       <div className="grid gap-12 md:grid-cols-12">
         <div className="md:col-span-3" />

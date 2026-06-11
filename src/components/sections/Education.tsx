@@ -4,7 +4,7 @@ import { SectionLabel } from "./SectionLabel";
 export function Education() {
   const t = useT();
   return (
-    <section id="education" className="mx-auto max-w-7xl px-6 py-32 md:px-10">
+    <section id="education" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
       <SectionLabel eyebrow={t.education.eyebrow} title={t.education.title} />
       <ul className="divide-y divide-border border-y border-border">
         {t.education.items.map((it, i) => (
