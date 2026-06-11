@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/Mostafa-SAID7/MS-ASP-Dev/tree/main/docs
+    about: Check our comprehensive documentation for answers
+  - name: GitHub Discussions
+    url: https://github.com/Mostafa-SAID7/MS-ASP-Dev/discussions
+    about: Have a general question? Start a discussion
+  - name: Security Issues
+    url: https://github.com/Mostafa-SAID7/MS-ASP-Dev/security/policy
+    about: Report security vulnerabilities responsibly

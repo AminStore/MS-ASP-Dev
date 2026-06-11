@@ -39,6 +39,15 @@ Comprehensive documentation available in `/docs`:
 - **[INTERNATIONALIZATION.md](./docs/INTERNATIONALIZATION.md)** - i18n setup and translation management
 - **[CSS_LINTER_INFO.md](./docs/CSS_LINTER_INFO.md)** - Tailwind v4 linter configuration
 
+**Community & Governance** (in `.github` and root):
+
+- **[CHANGELOG.md](./CHANGELOG.md)** - Version history and release notes
+- **[SECURITY.md](./SECURITY.md)** - Security policy and vulnerability reporting
+- **[CONTRIBUTING.md](./.github/CONTRIBUTING.md)** - Contribution guidelines and standards
+- **[CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)** - Community standards
+- **[Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)** - PR submission guide
+- **[Issue Templates](./.github/ISSUE_TEMPLATE/)** - Bug and feature request templates
+
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -198,6 +207,21 @@ Open source. Feel free to use as inspiration or template.
 ## 🤝 Contributing
 
 This is a personal portfolio. For improvements or bug reports, please create an issue or pull request.
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for detailed contribution guidelines, development setup, and coding standards.
+
+### Community & Governance
+
+- **[Code of Conduct](.github/CODE_OF_CONDUCT.md)** - Community standards and expectations
+- **[Contributing Guide](.github/CONTRIBUTING.md)** - How to contribute code and documentation
+- **[Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md)** - What to include in your PR
+- **[Security Policy](SECURITY.md)** - How to report vulnerabilities responsibly
+
+### Issue Templates
+
+Use these templates when opening issues:
+- **[Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)** - Report bugs with details
+- **[Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)** - Suggest new features
 
 ## ✅ Checklist
 
