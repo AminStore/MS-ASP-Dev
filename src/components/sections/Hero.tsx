@@ -28,7 +28,7 @@ export function Hero() {
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center">
         {/* Two column layout: Left metadata, Right main content */}
         <div className={GRIDS.sectionLayout}>
-          {/* Left column - Metadata/Tags */}
+          {/* Left column - Metadata/Tags & Image */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -47,26 +47,13 @@ export function Hero() {
                 ))}
               </div>
             </div>
-          </motion.div>
-
-          {/* Right column - Main description */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="md:col-span-8 flex flex-col justify-center pl-4 md:pl-12 border-l border-border/40"
-          >
-            {/* Main lede */}
-            <p className={`${FONTS.bodyXl} ${COLORS.textMuted} leading-relaxed tracking-[-0.01em]`}>
-              {t.hero.lede}
-            </p>
 
             {/* Image card with hover text */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-10 mb-10"
+              className="mt-6"
             >
               <div className="group relative overflow-hidden rounded-2xl bg-card/50 hover:bg-card transition-colors duration-300">
                 <img
@@ -82,13 +69,26 @@ export function Hero() {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
+
+          {/* Right column - Main description */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="md:col-span-8 flex flex-col justify-center pl-4 md:pl-12 border-l border-border/40"
+          >
+            {/* Main lede */}
+            <p className={`${FONTS.bodyXl} ${COLORS.textMuted} leading-relaxed tracking-[-0.01em]`}>
+              {t.hero.lede}
+            </p>
 
             {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-wrap items-center gap-4"
+              className="flex flex-wrap items-center gap-4 mt-10"
             >
               <a
                 href="#projects"
