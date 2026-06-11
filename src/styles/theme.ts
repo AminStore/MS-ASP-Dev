@@ -20,12 +20,12 @@ export const BORDERS = {
 } as const;
 
 export const FONTS = {
-  // Heading/Display sizes - optimized for readability
-  displayXl: "font-display text-6xl md:text-7xl leading-tight",
-  displayLg: "font-display text-4xl md:text-5xl leading-tight",
-  displayMd: "font-display text-3xl md:text-4xl leading-tight",
-  displaySm: "font-display text-2xl md:text-3xl leading-snug",
-  displayXs: "font-display text-xl md:text-2xl leading-snug",
+  // Heading/Display sizes with Jim Nightshade font - optimized for readability
+  displayXl: "font-title text-6xl md:text-7xl leading-tight",
+  displayLg: "font-title text-4xl md:text-5xl leading-tight",
+  displayMd: "font-title text-3xl md:text-4xl leading-tight",
+  displaySm: "font-title text-2xl md:text-3xl leading-snug",
+  displayXs: "font-title text-xl md:text-2xl leading-snug",
   
   // Body text sizes - optimized for readability
   bodyXl: "text-xl md:text-2xl leading-relaxed",
