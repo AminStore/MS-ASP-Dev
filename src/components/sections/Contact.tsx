@@ -5,6 +5,7 @@ import { z } from "zod";
 import { ArrowRight, Mail } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
+import { SPACING, COLORS, FONTS, GRIDS, BORDERS, COMPONENTS } from "@/styles/theme";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -26,17 +27,7 @@ export function Contact() {
   const onSubmit = async (data: FormData) => {
     setStatus("sending");
     try {
-      // For now, just log the submission
-      // In production, you would send this to an API endpoint or email service
       console.log("Form submitted:", data);
-      
-      // Example: Send to FormSubmit.co or similar service
-      // const response = await fetch('https://formsubmit.co/your-email@example.com', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data)
-      // });
-      
       setStatus("sent");
       reset();
       setTimeout(() => setStatus("idle"), 3000);
@@ -47,20 +38,20 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
+    <section id="contact" className={`mx-auto max-w-7xl ${SPACING.section}`}>
       <SectionLabel eyebrow={t.contact.eyebrow} title={t.contact.title} />
-      <div className="grid gap-12 md:grid-cols-12">
+      <div className={GRIDS.sectionLayout}>
         <div className="md:col-span-5">
-          <p className="max-w-md text-lg leading-relaxed text-muted-foreground md:text-xl">
+          <p className={`max-w-md ${FONTS.bodyLg} ${COLORS.textMuted}`}>
             {t.contact.lede}
           </p>
-          <div className="mt-10 space-y-3 text-sm">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="mt-10 space-y-3">
+            <p className={`${FONTS.labelXs} ${COLORS.textMuted}`}>
               {t.contact.direct}
             </p>
             <a
               href="mailto:hello@example.com"
-              className="inline-flex items-center gap-2 font-display text-2xl underline decoration-border underline-offset-4 transition hover:decoration-foreground"
+              className={`inline-flex items-center gap-2 ${FONTS.displaySm} underline decoration-border underline-offset-4 transition hover:decoration-foreground`}
             >
               <Mail className="size-5" />
               hello@example.com
@@ -68,7 +59,7 @@ export function Contact() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card/50 p-8 backdrop-blur-sm md:col-span-7">
+        <div className={`${BORDERS.rounded2xl} ${BORDERS.borderBase} ${COLORS.bgCard} ${SPACING.cardPadding} backdrop-blur-sm md:col-span-7`}>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-6"
@@ -79,7 +70,7 @@ export function Contact() {
                 {...register("name")}
                 type="text"
                 autoComplete="name"
-                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background"
+                className={COMPONENTS.formInput}
               />
             </Field>
             <Field label={t.contact.email} error={errors.email?.message}>
@@ -87,14 +78,14 @@ export function Contact() {
                 {...register("email")}
                 type="email"
                 autoComplete="email"
-                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background"
+                className={COMPONENTS.formInput}
               />
             </Field>
             <Field label={t.contact.message} error={errors.message?.message}>
               <textarea
                 {...register("message")}
                 rows={5}
-                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background resize-none"
+                className={`${COMPONENTS.formInput} resize-none`}
               />
             </Field>
 
@@ -108,10 +99,10 @@ export function Contact() {
                 <ArrowRight className="size-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
               </button>
               {status === "sent" && (
-                <p className="text-sm text-muted-foreground">{t.contact.sent}</p>
+                <p className={`${FONTS.bodySm} ${COLORS.textMuted}`}>{t.contact.sent}</p>
               )}
               {status === "error" && (
-                <p className="text-sm text-destructive">{t.contact.error}</p>
+                <p className={`${FONTS.bodySm} text-destructive`}>{t.contact.error}</p>
               )}
             </div>
           </form>
@@ -132,11 +123,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        {label}
-      </span>
+      <span className={COMPONENTS.formLabel}>{label}</span>
       <div className="mt-2">{children}</div>
-      {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
+      {error && <span className={COMPONENTS.formError}>{error}</span>}
     </label>
   );
 }
