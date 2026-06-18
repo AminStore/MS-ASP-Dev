@@ -10,14 +10,36 @@ import "./styles.css";
 // Browser extensions (Redux DevTools, React DevTools, etc.) may try to
 // communicate with content scripts that don't exist. Suppress these harmless errors.
 if (typeof window !== "undefined") {
+  // Suppress unhandledrejection events
   window.addEventListener("unhandledrejection", (event) => {
+    const reason = event.reason;
+    const message = reason?.message || String(reason);
+    
     if (
-      event.reason?.message?.includes("Receiving end does not exist") ||
-      event.reason?.message?.includes("Could not establish connection")
+      message.includes("Receiving end does not exist") ||
+      message.includes("Could not establish connection")
     ) {
       event.preventDefault();
     }
   });
+
+  // Also suppress via console.error override for extension errors that don't trigger unhandledrejection
+  const originalError = console.error;
+  console.error = function(...args: any[]) {
+    const message = args.map(arg => String(arg)).join(" ");
+    
+    // Skip extension-related errors
+    if (
+      message.includes("Receiving end does not exist") ||
+      message.includes("Could not establish connection") ||
+      message.includes("useCache")
+    ) {
+      return;
+    }
+    
+    // Call original for other errors
+    originalError.apply(console, args);
+  };
 }
 
 // ── Theme: apply before first paint to prevent flash ──────────
