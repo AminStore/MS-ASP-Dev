@@ -208,7 +208,8 @@ export const en = {
         year: "2024",
         role: "Backend Engineer",
         body: "A RESTful API for medical appointment booking, built on ASP.NET Core with Clean Architecture and CQRS via MediatR. EF Core manages SQL Server data. Swagger/OpenAPI provides interactive documentation. Covers patient profiles, doctor availability, and appointment workflows.",
-        liveUrl: "http://website-api-73.runasp.net",
+        liveUrl: "https://dr-medicare.runasp.net",
+        imageUrl: "/projects/api/Dr-MediCare-API.png",
       },
       {
         slug: "cinemaverse-api",
@@ -227,6 +228,7 @@ export const en = {
         year: "2024",
         role: "Backend Engineer",
         body: "A banking REST API covering accounts, transactions, and transfers. Built on ASP.NET Core with Clean Architecture and EF Core against SQL Server. Swagger/OpenAPI documentation, JWT authentication, and strict validation via FluentValidation keep the API secure and well-documented.",
+        imageUrl: "/projects/api/Bank-API.png",
       },
       {
         slug: "restaurant-app-api",
@@ -236,6 +238,8 @@ export const en = {
         year: "2024",
         role: "Backend Engineer",
         body: "A RESTful API for restaurant operations — menu management, table reservations, order processing, and billing. Built with ASP.NET Core on Clean Architecture, EF Core for SQL Server persistence, and Swagger for interactive documentation consumed by mobile and web frontends.",
+        liveUrl: "https://restaurant-app-api.runasp.net/Docs.html",
+        imageUrl: "/projects/api/Restaurant-App-API.png",
       },
       {
         slug: "market-api",

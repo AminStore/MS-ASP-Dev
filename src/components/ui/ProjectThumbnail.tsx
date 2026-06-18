@@ -9,6 +9,7 @@
  *  category — controls the colour palette + pattern
  *  slug     — used as a stable ID seed so multiple instances on the same
  *             page don't share SVG pattern IDs and cause visual glitches
+ *  imageUrl — optional image URL to display instead of generated gradient
  *  className — forwarded to the root element for sizing/rounding
  */
 
@@ -16,6 +17,7 @@ type Props = {
   name: string;
   category: string;
   slug: string;
+  imageUrl?: string;
   className?: string;
 };
 
@@ -110,7 +112,21 @@ function PatternDef({ kind, id }: { kind: Config["pattern"]; id: string }) {
   );
 }
 
-export function ProjectThumbnail({ name, category, slug, className = "" }: Props) {
+export function ProjectThumbnail({ name, category, slug, imageUrl, className = "" }: Props) {
+  // If imageUrl is provided, use it directly
+  if (imageUrl) {
+    return (
+      <div className={`relative overflow-hidden ${className}`}>
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+
+  // Otherwise, generate the gradient-based thumbnail
   const cfg = CONFIGS[category] ?? FALLBACK;
   const initials = getInitials(name);
   // Unique IDs per instance — critical when multiple thumbnails render on the same page
