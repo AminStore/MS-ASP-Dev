@@ -150,7 +150,7 @@ export function Hero() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-25"
+                className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-25 will-change-transform"
               />
               {/* Hover overlay */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 px-8 text-center">
