@@ -44,7 +44,7 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     // Target modern browsers — smaller output, no legacy polyfills needed
-    target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+    target: ["es2020", "edge88", "firefox78", "chrome90", "safari15"],
     // Three.js (730 kB) and the vendor bundle are inherently large; suppress noise
     chunkSizeWarningLimit: 800,
     rollupOptions: {
