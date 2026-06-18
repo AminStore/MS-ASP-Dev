@@ -1,35 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
     <style>
-      /* Light theme (default) - Paper & Ink design system */
-      .bg-theme { fill: #f5f3ee; }
-      .icon-theme { fill: #0d0d0d; }
-      .border-theme { stroke: #e8e5da; }
-      
-      /* Dark theme */
+      .bg { fill: #f5f3ee; }
+      .icon { fill: #0d0d0d; }
       @media (prefers-color-scheme: dark) {
-        .bg-theme { fill: #1a1a1a; }
-        .icon-theme { fill: #f5f3ee; }
-        .border-theme { stroke: #2a2a2a; }
+        .bg { fill: #1a1a1a; }
+        .icon { fill: #f5f3ee; }
       }
     </style>
   </defs>
   
   <!-- Background -->
-  <rect class="bg-theme" width="100" height="100"/>
+  <rect class="bg" width="100" height="100"/>
   
-  <!-- Subtle border -->
-  <rect class="bg-theme" width="100" height="100" fill="none" class="border-theme" stroke-width="1"/>
+  <!-- Curly braces with slash - represents code -->
+  <!-- Left brace { -->
+  <path class="icon" d="M 28 30 Q 20 30 20 40 L 20 50 Q 20 60 28 60" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   
-  <!-- Code icon - represents full-stack development -->
-  <g transform="translate(50, 50)">
-    <!-- Left angle bracket -->
-    <path class="icon-theme" d="M -22 -15 L -8 0 L -22 15" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    
-    <!-- Right angle bracket -->
-    <path class="icon-theme" d="M 22 -15 L 8 0 L 22 15" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    
-    <!-- Center vertical line (slash or separator) -->
-    <line class="icon-theme" x1="0" y1="-18" x2="0" y2="18" stroke-width="2.5" stroke-linecap="round"/>
-  </g>
+  <!-- Right brace } -->
+  <path class="icon" d="M 72 30 Q 80 30 80 40 L 80 50 Q 80 60 72 60" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Center slash -->
+  <line class="icon" x1="40" y1="25" x2="60" y2="75" stroke-width="5" stroke-linecap="round"/>
 </svg>
