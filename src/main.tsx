@@ -6,6 +6,20 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 
+// ── Suppress extension messaging errors ────────────────────────
+// Browser extensions (Redux DevTools, React DevTools, etc.) may try to
+// communicate with content scripts that don't exist. Suppress these harmless errors.
+if (typeof window !== "undefined") {
+  window.addEventListener("unhandledrejection", (event) => {
+    if (
+      event.reason?.message?.includes("Receiving end does not exist") ||
+      event.reason?.message?.includes("Could not establish connection")
+    ) {
+      event.preventDefault();
+    }
+  });
+}
+
 // ── Theme: apply before first paint to prevent flash ──────────
 const initializeTheme = () => {
   try {
