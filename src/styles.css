@@ -11,7 +11,10 @@
 
 /*
  * Paper & Ink editorial design system.
- * Headings: Instrument Serif. Body: Work Sans. Arabic: Tajawal.
+ * Headings: Jim Nightshade (font-title).
+ * Body / labels: Italianno (font-accent).
+ * Arabic override: Tajawal replaces both for RTL.
+ * Base UI: Work Sans (--font-sans, default body).
  */
 
 @theme inline {
@@ -173,6 +176,18 @@
   html[dir="rtl"] .font-display {
     font-family: var(--font-arabic);
     font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  html[dir="rtl"] .font-title {
+    font-family: var(--font-arabic);
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  html[dir="rtl"] .font-accent {
+    font-family: var(--font-arabic);
+    font-weight: 400;
     letter-spacing: 0;
   }
 

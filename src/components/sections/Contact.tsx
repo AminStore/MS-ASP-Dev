@@ -40,15 +40,14 @@ export function Contact() {
   return (
     <section id="contact" className={`mx-auto max-w-7xl ${SPACING.section}`}>
       <SectionLabel eyebrow={t.contact.eyebrow} title={t.contact.title} />
+
       <div className={GRIDS.sectionLayout}>
         <div className="md:col-span-5">
-          <p className={`max-w-md ${FONTS.bodyXl} ${COLORS.textMuted} leading-relaxed`}>
+          <p className={`max-w-md ${FONTS.bodyXl} ${COLORS.textMuted}`}>
             {t.contact.lede}
           </p>
           <div className="mt-10 space-y-3">
-            <p className={`${FONTS.labelMd} ${COLORS.textMuted}`}>
-              {t.contact.direct}
-            </p>
+            <p className={`${FONTS.labelMd} ${COLORS.textMuted}`}>{t.contact.direct}</p>
             <a
               href="mailto:m.ssaid356@gmail.com"
               className={`inline-flex items-center gap-2 ${FONTS.displaySm} underline decoration-border underline-offset-4 transition hover:decoration-foreground`}
@@ -69,33 +68,15 @@ export function Contact() {
         </div>
 
         <div className={`${BORDERS.rounded2xl} ${BORDERS.borderBase} ${COLORS.bgCard} ${SPACING.cardPadding} backdrop-blur-sm md:col-span-7`}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-6"
-            noValidate
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
             <Field label={t.contact.name} error={errors.name?.message}>
-              <input
-                {...register("name")}
-                type="text"
-                autoComplete="name"
-                className={COMPONENTS.formInput}
-              />
+              <input {...register("name")} type="text" autoComplete="name" className={COMPONENTS.formInput} />
             </Field>
             <Field label={t.contact.email} error={errors.email?.message}>
-              <input
-                {...register("email")}
-                type="email"
-                autoComplete="email"
-                className={COMPONENTS.formInput}
-              />
+              <input {...register("email")} type="email" autoComplete="email" className={COMPONENTS.formInput} />
             </Field>
             <Field label={t.contact.message} error={errors.message?.message}>
-              <textarea
-                {...register("message")}
-                rows={5}
-                className={`${COMPONENTS.formInput} resize-none`}
-              />
+              <textarea {...register("message")} rows={5} className={`${COMPONENTS.formInput} resize-none`} />
             </Field>
 
             <div className="flex flex-wrap items-center justify-between gap-4 pt-4">

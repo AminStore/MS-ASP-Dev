@@ -8,6 +8,7 @@ export function Experience() {
   return (
     <section id="experience" className={`mx-auto max-w-7xl ${SPACING.section}`}>
       <SectionLabel eyebrow={t.experience.eyebrow} title={t.experience.title} />
+
       <ol className={`grid gap-px overflow-hidden ${BORDERS.rounded2xl} ${BORDERS.borderBase} bg-border md:grid-cols-1`}>
         {t.experience.items.map((it, i) => (
           <motion.li
@@ -22,7 +23,7 @@ export function Experience() {
             <div className="md:col-span-9">
               <p className={FONTS.displayMd}>{it.role}</p>
               <p className={`mt-1 ${FONTS.bodySm} ${COLORS.textMuted}`}>{it.company}</p>
-              <p className={`mt-4 max-w-2xl ${FONTS.bodyLg} ${COLORS.textBase}/75 leading-relaxed`}>{it.body}</p>
+              <p className={`mt-4 max-w-2xl ${FONTS.bodyLg} ${COLORS.textSubtle}`}>{it.body}</p>
             </div>
           </motion.li>
         ))}

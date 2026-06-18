@@ -1,0 +1,35 @@
+/*
+  # Prevent clickjacking — no iframe embedding allowed
+  X-Frame-Options: DENY
+  # Prevent MIME-type sniffing attacks
+  X-Content-Type-Options: nosniff
+  # Disable legacy XSS auditor (modern browsers ignore it; disabling avoids quirks)
+  X-XSS-Protection: 0
+  # Limit referrer information to same-origin + scheme+host for cross-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Restrict browser feature access
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  # Content Security Policy
+  # — script-src 'unsafe-inline': required for JSON-LD <script> tags and Vite module preload
+  # — style-src 'unsafe-inline': required for Tailwind CSS-in-JS and Google Fonts
+  # — frame-ancestors 'none': belt-and-suspenders with X-Frame-Options
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; media-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+
+/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate
+  # Service worker must always be served fresh so updates propagate immediately
+
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/MS.jpg
+  Cache-Control: public, max-age=2592000

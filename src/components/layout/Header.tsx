@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useT } from "@/i18n/useT";
 import { FONTS, COLORS, COMPONENTS } from "@/styles/theme";
 import { ThemeToggle, LocaleToggle } from "./Toggles";
+import { useActiveSection } from "@/hooks/use-active-section";
 
 const SECTIONS = ["about", "skills", "projects", "experience", "education", "contact"] as const;
 
@@ -11,9 +12,10 @@ export function Header() {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection(SECTIONS);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -21,48 +23,61 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-border/40 bg-background/95 backdrop-blur-lg shadow-sm"
-          : "bg-transparent",
+        "fixed inset-x-0 top-2 z-50 px-4 md:px-6 transition-all duration-300",
       ].join(" ")}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10">
+      {/* Pill container — floats above the page */}
+      <div
+        className={[
+          "mx-auto flex max-w-7xl items-center justify-between gap-6 rounded-2xl px-5 py-3 transition-all duration-500",
+          scrolled
+            ? "border border-border/50 bg-background/85 backdrop-blur-xl shadow-lg shadow-foreground/5"
+            : "border border-transparent bg-transparent",
+        ].join(" ")}
+      >
+        {/* Logo */}
         <a
-          href="#top"
-          className={`${FONTS.displayXs} leading-none`}
+          href="/"
+          className={`${FONTS.displayXs} leading-none transition hover:opacity-70`}
           aria-label="Home"
         >
           ✦
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
           {SECTIONS.map((id) => (
             <a
               key={id}
-              href={`#${id}`}
-              className={`group relative ${FONTS.labelXs} ${COLORS.textMuted} transition hover:${COLORS.textBase}`}
+              href={`/#${id}`}
+              className={[
+                `group relative ${FONTS.labelXs} transition-colors duration-200`,
+                active === id
+                  ? "text-foreground"
+                  : `${COLORS.textMuted} hover:text-foreground`,
+              ].join(" ")}
             >
               {t.nav[id]}
-              <span className="absolute -bottom-1 start-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
+              {/* Animated underline that tracks the active section */}
+              <motion.span
+                className="absolute -bottom-1 start-0 h-px bg-foreground"
+                initial={false}
+                animate={{ width: active === id ? "100%" : "0%" }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              />
             </a>
           ))}
         </nav>
 
+        {/* Desktop actions */}
         <div className="hidden items-center gap-2 md:flex">
-          <a
-            href="/resume.pdf"
-            download
-            className={`${COMPONENTS.buttonPrimary}`}
-          >
+          <a href="/resume.pdf" download className={COMPONENTS.buttonPrimary}>
             <Download className="size-3.5" />
             {t.nav.resume}
           </a>
@@ -70,6 +85,7 @@ export function Header() {
           <ThemeToggle />
         </div>
 
+        {/* Mobile hamburger */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -77,59 +93,54 @@ export function Header() {
           aria-label={t.nav.menu}
           aria-expanded={open}
         >
-          <motion.div
-            animate={{ rotate: open ? 90 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.25 }}>
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </motion.div>
         </button>
       </div>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`fixed inset-0 top-[64px] z-40 flex flex-col gap-2 ${COLORS.bgMobileMenu} backdrop-blur-md px-6 py-8 md:hidden border-t border-border/40 overflow-y-auto`}
+            initial={{ opacity: 0, y: -12, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.97 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className={`fixed inset-0 top-[72px] z-40 flex flex-col gap-2 ${COLORS.bgMobileMenu} backdrop-blur-md px-6 py-8 md:hidden border-t border-border/40 overflow-y-auto`}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-              className="space-y-1"
-            >
+            <div className="space-y-1">
               {SECTIONS.map((id, i) => (
                 <motion.div
                   key={id}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
+                  transition={{ delay: 0.05 + i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <a
-                    href={`#${id}`}
+                    href={`/#${id}`}
                     onClick={() => setOpen(false)}
-                    className={`block border-b border-border/40 py-4 ${FONTS.displaySm} transition hover:${COLORS.textBase} hover:pl-2 hover:border-foreground/40`}
+                    className={[
+                      `block border-b border-border/40 py-4 ${FONTS.displaySm} transition-all hover:ps-2`,
+                      active === id ? "text-foreground border-foreground/20" : COLORS.textMuted,
+                    ].join(" ")}
                   >
+                    <span className={`${FONTS.labelXs} ${COLORS.textMuted} me-3`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     {t.nav[id]}
                   </a>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
               className="mt-6 space-y-3"
             >
-              <a
-                href="/resume.pdf"
-                download
-                className={`${COMPONENTS.buttonPrimary} flex justify-center`}
-              >
+              <a href="/resume.pdf" download className={`${COMPONENTS.buttonPrimary} flex justify-center`}>
                 <Download className="size-3.5" />
                 {t.nav.resume}
               </a>

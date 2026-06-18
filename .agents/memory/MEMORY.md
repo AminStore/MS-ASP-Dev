@@ -1,0 +1,1 @@
+- [Vite react-three/fiber dedup](vite-react-dedup.md) — add resolve.dedupe for react/react-dom; never add them to optimizeDeps.include (causes 504 hash churn).

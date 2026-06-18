@@ -1,46 +1,53 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 
-// Theme preference handling
+// ── Theme: apply before first paint to prevent flash ──────────
 const initializeTheme = () => {
   try {
-    const theme = localStorage.getItem("theme");
+    const stored = localStorage.getItem("theme");
     const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
-    const isDark = theme === "dark" || (!theme && prefersDark);
-    
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  } catch (e) {
-    console.error("Failed to initialize theme:", e);
+    const isDark = stored === "dark" || (!stored && prefersDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  } catch {
+    // localStorage blocked (e.g. private mode + strict settings)
   }
 };
 
-// Locale handling
+// ── Locale: apply dir/lang before first paint ─────────────────
 const initializeLocale = () => {
   try {
     const locale = localStorage.getItem("locale") || "en";
     document.documentElement.setAttribute("lang", locale);
     document.documentElement.setAttribute("dir", locale === "ar" ? "rtl" : "ltr");
-  } catch (e) {
-    console.error("Failed to initialize locale:", e);
+  } catch {
+    // localStorage blocked
   }
 };
 
-const queryClient = new QueryClient();
+initializeTheme();
+initializeLocale();
+
+// ── Router ────────────────────────────────────────────────────
+// queryClient is passed via router context — __root.tsx provides the QueryClientProvider.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000,
+      retry: 1,
+    },
+  },
+});
 
 const router = createRouter({
   routeTree,
-  context: {
-    queryClient,
-  },
+  context: { queryClient },
+  scrollRestoration: true,
+  defaultPreloadStaleTime: 0,
 });
 
 declare module "@tanstack/react-router" {
@@ -49,19 +56,21 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// ── Mount ─────────────────────────────────────────────────────
 const rootElement = document.getElementById("root");
-
-// Initialize theme and locale before render
-initializeTheme();
-initializeLocale();
-
 if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
+  ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <RouterProvider router={router} />
     </React.StrictMode>
   );
+}
+
+// ── Service Worker ────────────────────────────────────────────
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .catch((err) => console.warn("SW registration failed:", err));
+  });
 }

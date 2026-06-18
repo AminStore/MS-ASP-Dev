@@ -2,26 +2,127 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MS — Editorial Portfolio</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+    <!-- ── Primary SEO ── -->
+    <title>Mostafa Samir — Full-Stack .NET &amp; React Developer</title>
     <meta
       name="description"
-      content="Senior product engineer crafting calm, considered software. Selected work, experience, and writing."
+      content="Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications. Based in Tanta, Egypt — working globally."
     />
-    <meta name="author" content="Your Name" />
-    <meta property="og:title" content="Your Name — Editorial Portfolio" />
+    <meta name="author" content="Mostafa Samir" />
+    <meta
+      name="keywords"
+      content="Mostafa Samir, Full-Stack Developer, .NET 8, ASP.NET Core, C#, React, TypeScript, SQL Server, Microservices, Egypt, software engineer, backend, frontend"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#1c1a18" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)" />
+
+    <!-- ── Open Graph ── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mostafa Samir" />
+    <meta property="og:title" content="Mostafa Samir — Full-Stack .NET &amp; React Developer" />
     <meta
       property="og:description"
-      content="Senior product engineer crafting calm, considered software. Selected work, experience, and writing."
+      content="Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications. Based in Tanta, Egypt — working globally."
     />
-    <meta property="og:site_name" content="Your Name" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <!-- Google Fonts: Jim Nightshade for display/title elements -->
-    <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
-    <!-- Google Fonts: Italianno for accent/decorative elements -->
-    <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/MS.jpg" />
+    <meta property="og:image:alt" content="Mostafa Samir — Full-Stack Developer" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_EG" />
+
+    <!-- ── Twitter / X Card ── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mostafa Samir — Full-Stack .NET &amp; React Developer" />
+    <meta
+      name="twitter:description"
+      content="Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications."
+    />
+    <meta name="twitter:image" content="/MS.jpg" />
+    <meta name="twitter:image:alt" content="Mostafa Samir — Full-Stack Developer" />
+
+    <!-- ── Person structured data ── -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mostafa Samir",
+        "jobTitle": "Full-Stack Software Developer",
+        "description": "Full-Stack Software Developer specialising in .NET 8 and React/TypeScript. Based in Tanta, Egypt.",
+        "url": "/",
+        "email": "m.ssaid356@gmail.com",
+        "telephone": "+201067358073",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tanta",
+          "addressCountry": "EG"
+        },
+        "knowsAbout": [".NET 8", "ASP.NET Core", "C#", "React", "TypeScript", "SQL Server", "Microservices"],
+        "sameAs": [
+          "https://github.com/Mostafa-SAID7",
+          "https://www.linkedin.com/in/mostafasamirsaid"
+        ]
+      }
+    </script>
+
+    <!-- ── Icons & PWA ── -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!--
+      ── LCP Preload ──
+      Preloading the hero image here — before React even boots — is the single
+      biggest LCP win. The browser starts fetching MS.jpg in parallel with the
+      JS bundle, shaving hundreds of milliseconds from Largest Contentful Paint.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/MS.jpg"
+      fetchpriority="high"
+    />
+
+    <!--
+      ── DNS Prefetch ──
+      Warm up DNS for external origins that appear in visible content.
+      Costs nothing, saves ~50-300 ms on first connection to each host.
+    -->
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://wa.me" />
+
+    <!--
+      ── Fonts ──
+      1. preconnect opens the TCP + TLS handshake to Google's servers before
+         the stylesheet is even requested.
+      2. The stylesheet is loaded with media="print" so it is non-render-blocking.
+         onload switches it to media="all" once it arrives.
+      3. The <noscript> fallback loads the fonts normally for no-JS environments.
+      font-display=swap is embedded in the URL so text stays visible during load.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="google-fonts"
+      href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&family=Italianno&family=Work+Sans:wght@300;400;500&family=Tajawal:wght@300;400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&family=Italianno&family=Work+Sans:wght@300;400;500&family=Tajawal:wght@300;400;500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </head>
   <body>

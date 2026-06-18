@@ -9,24 +9,75 @@ import { Experience } from "@/components/sections/Experience";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 
+/**
+ * VITE_SITE_URL — set this env variable to the deployed origin, e.g.
+ *   VITE_SITE_URL=https://mostafa-samir.replit.app
+ * When unset the canonical falls back to a relative "/" (still valid, just
+ * not as helpful for multi-domain deduplication).
+ */
+const SITE_URL = (import.meta.env.VITE_SITE_URL as string | undefined) ?? "";
+
+const TITLE = "Mostafa Samir — Full-Stack .NET & React Developer";
+const DESCRIPTION =
+  "Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications. Based in Tanta, Egypt — working globally.";
+const CANONICAL = `${SITE_URL}/`;
+const OG_IMAGE = `${SITE_URL}/MS.jpg`;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your Name — Editorial Portfolio" },
-      {
-        name: "description",
-        content:
-          "Bilingual portfolio of a senior product engineer. Selected work, experience, and a way to get in touch.",
-      },
-      { property: "og:title", content: "Your Name — Editorial Portfolio" },
-      {
-        property: "og:description",
-        content:
-          "Bilingual portfolio of a senior product engineer. Selected work, experience, and a way to get in touch.",
-      },
-      { property: "og:url", content: "/" },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { name: "keywords", content: "Mostafa Samir, Full-Stack Developer, .NET 8, ASP.NET Core, C#, React, TypeScript, SQL Server, Microservices, Egypt" },
+      // Open Graph
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
+      { property: "og:url", content: CANONICAL },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:alt", content: "Mostafa Samir — Full-Stack Developer" },
+      { property: "og:image:width", content: "800" },
+      { property: "og:image:height", content: "1000" },
+      // Twitter
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: CANONICAL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Mostafa Samir",
+          jobTitle: "Full-Stack Software Developer",
+          description: DESCRIPTION,
+          url: CANONICAL,
+          email: "m.ssaid356@gmail.com",
+          telephone: "+201067358073",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tanta",
+            addressCountry: "EG",
+          },
+          knowsAbout: [
+            ".NET 8",
+            "ASP.NET Core",
+            "C#",
+            "React",
+            "TypeScript",
+            "SQL Server",
+            "Microservices",
+          ],
+          sameAs: [
+            "https://github.com/Mostafa-SAID7",
+            "https://www.linkedin.com/in/mostafasamirsaid",
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });
