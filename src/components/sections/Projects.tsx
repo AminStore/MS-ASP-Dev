@@ -140,6 +140,7 @@ export function Projects() {
                   name={p.name}
                   category={p.category}
                   slug={p.slug}
+                  imageUrl={p.imageUrl}
                   className="aspect-[16/9] w-full"
                 />
 
@@ -285,6 +286,7 @@ export function Projects() {
                             name={p.name}
                             category={p.category}
                             slug={`modal-${p.slug}`}
+                            imageUrl={p.imageUrl}
                             className="size-10 rounded-lg flex-shrink-0"
                           />
                         </td>

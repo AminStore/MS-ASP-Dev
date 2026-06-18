@@ -298,6 +298,7 @@ function ProjectDetail() {
             name={project.name}
             category={project.category}
             slug={project.slug}
+            imageUrl={project.imageUrl}
             className="aspect-[16/9] w-full rounded-2xl overflow-hidden"
           />
         </motion.div>
@@ -330,6 +331,7 @@ function ProjectDetail() {
                         name={rel.name}
                         category={rel.category}
                         slug={rel.slug}
+                        imageUrl={rel.imageUrl}
                         className="w-full h-full transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
