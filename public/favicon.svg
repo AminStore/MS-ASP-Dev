@@ -4,15 +4,29 @@
       @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
       
       /* Light theme (default) - Paper & Ink design system */
-      .background-light { fill: #f5f3ee; }
-      .border-light { stroke: #e8e5da; }
-      .symbol-light { fill: #0d0d0d; }
+      :root {
+        --bg-light: #f5f3ee;
+        --text-light: #0d0d0d;
+        --border-light: #e8e5da;
+      }
       
       /* Dark theme */
       @media (prefers-color-scheme: dark) {
-        .background-light { fill: #1a1a1a; }
-        .border-light { stroke: #2a2a2a; }
-        .symbol-light { fill: #f5f3ee; }
+        :root {
+          --bg-light: #1a1a1a;
+          --text-light: #f5f3ee;
+          --border-light: #2a2a2a;
+        }
+      }
+      
+      .bg-theme { fill: #f5f3ee; }
+      .border-theme { stroke: #e8e5da; }
+      .text-theme { fill: #0d0d0d; }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg-theme { fill: #1a1a1a; }
+        .border-theme { stroke: #2a2a2a; }
+        .text-theme { fill: #f5f3ee; }
       }
       
       .symbol {
@@ -24,10 +38,13 @@
       }
     </style>
   </defs>
+  
   <!-- Background -->
-  <rect class="background-light" width="100" height="100"/>
+  <rect class="bg-theme" width="100" height="100"/>
+  
   <!-- Decorative border - subtle, matches theme -->
-  <rect class="background-light" width="100" height="100" rx="0" fill="none" class="border-light" stroke-width="1"/>
+  <rect class="bg-theme" width="100" height="100" rx="0" fill="none" class="border-theme" stroke-width="1"/>
+  
   <!-- Symbol matching app's decorative element -->
-  <text class="symbol symbol-light" x="50" y="50">✦</text>
+  <text class="symbol text-theme" x="50" y="50">✦</text>
 </svg>
