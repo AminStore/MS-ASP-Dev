@@ -249,6 +249,8 @@ export const en = {
         year: "2024",
         role: "Backend Engineer",
         body: "A marketplace REST API built on ASP.NET Core with Clean Architecture. Uses MongoDB as the primary data store — chosen for flexible product schemas. EF Core handles relational sub-domains. Swagger documents all endpoints, supporting product listings, search, and order management.",
+        liveUrl: "http://market-api.runasp.net/index.html",
+        imageUrl: "/projects/api/Market-API.png",
       },
       {
         slug: "online-bookstore-api",
