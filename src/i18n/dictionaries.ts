@@ -208,6 +208,7 @@ export const en = {
         year: "2024",
         role: "Backend Engineer",
         body: "A RESTful API for medical appointment booking, built on ASP.NET Core with Clean Architecture and CQRS via MediatR. EF Core manages SQL Server data. Swagger/OpenAPI provides interactive documentation. Covers patient profiles, doctor availability, and appointment workflows.",
+        liveUrl: "http://website-api-73.runasp.net",
       },
       {
         slug: "cinemaverse-api",

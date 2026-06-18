@@ -223,6 +223,19 @@ function ProjectDetail() {
 
           {/* Action buttons */}
           <motion.div variants={item} className="flex items-center gap-3">
+            {/* Live Demo — only shown if liveUrl exists */}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group ${COMPONENTS.buttonPrimary}`}
+              >
+                <ExternalLink className="size-4" />
+                Live Demo
+              </a>
+            )}
+
             {/* GitHub profile — always shown */}
             <a
               href="https://github.com/Mostafa-SAID7"
