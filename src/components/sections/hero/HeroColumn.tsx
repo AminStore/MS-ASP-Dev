@@ -15,7 +15,10 @@ export function HeroColumn({
   delay = 0.2,
   colSpan = 5,
 }: HeroColumnProps) {
-  const colClass = side === "left" ? `md:col-span-${colSpan}` : `md:col-span-${colSpan} lg:ps-4`;
+  const colClass =
+    side === "left"
+      ? `md:col-span-${colSpan}`
+      : `md:col-span-${colSpan} lg:ps-8 lg:border-l lg:border-border/25`;
 
   return (
     <motion.div

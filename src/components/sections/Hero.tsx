@@ -43,7 +43,6 @@ export function Hero() {
 
           {/* Right column: Text content */}
           <HeroColumn side="right" delay={0} colSpan={7}>
-            <HeroDivider delay={0.3} />
             <HeroHeadline lines={t.hero.title} />
             <HeroLede text={t.hero.lede} />
             <HeroStack techs={t.hero.stack} />
@@ -52,7 +51,6 @@ export function Hero() {
               resume={t.hero.resume}
               whatsappUrl={t.hero.whatsappUrl}
             />
-            <HeroDivider delay={1.4} originSide="end" />
           </HeroColumn>
         </div>
       </div>
