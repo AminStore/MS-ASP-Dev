@@ -42,21 +42,26 @@ if (typeof window !== "undefined") {
 
   // Intercept uncaught errors that extensions throw
   const originalAddEventListener = window.addEventListener;
-  window.addEventListener = function(type: string, ...args: any[]) {
+  window.addEventListener = function(this: Window, type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
     if (type === "error" || type === "unhandledrejection") {
-      const [listener, options] = args;
-      const wrappedListener = function(event: any) {
+      const wrappedListener = function(this: any, event: any) {
         const message = event.message || event.reason?.message || String(event);
         if (isExtensionError(message)) {
           event.preventDefault?.();
           return;
         }
-        return listener.call(this, event);
+        if (typeof listener === "function") {
+          return listener.call(this, event);
+        } else if (listener && typeof listener === "object" && "handleEvent" in listener) {
+          return listener.handleEvent(event);
+        }
       };
-      return originalAddEventListener.call(this, type, wrappedListener, options);
+      return originalAddEventListener.call(this, type, wrappedListener, options) as any;
     }
-    return originalAddEventListener.call(this, type, ...args);
-  };
+    if (typeof listener === "function" || (listener && typeof listener === "object")) {
+      return originalAddEventListener.call(this, type, listener, options) as any;
+    }
+  } as any;
 
   // 2. Suppress unhandledrejection events
   window.addEventListener("unhandledrejection", (event) => {
@@ -82,14 +87,14 @@ if (typeof window !== "undefined") {
   const originalError = console.error;
   const originalWarn = console.warn;
   
-  console.error = function(...args: any[]) {
+  console.error = function(this: any, ...args: any[]): void {
     const message = args.map(arg => String(arg)).join(" ");
     if (!isExtensionError(message)) {
       originalError.apply(console, args);
     }
-  };
+  } as any;
 
-  console.warn = function(...args: any[]) {
+  console.warn = function(this: any, ...args: any[]): void {
     const message = args.map(arg => String(arg)).join(" ");
     const hasThreeClockWarning = message.includes("THREE.Clock") || 
                                  message.includes("THREE.Timer") ||
@@ -97,11 +102,11 @@ if (typeof window !== "undefined") {
     if (!isExtensionError(message) && !hasThreeClockWarning) {
       originalWarn.apply(console, args);
     }
-  };
+  } as any;
 
   // 5. Suppress extension-related console logs (non-errors)
   const originalLog = console.log;
-  console.log = function(...args: any[]) {
+  console.log = function(this: any, ...args: any[]): void {
     const message = args.map(arg => String(arg)).join(" ");
     
     // Skip extension framework logs
@@ -119,16 +124,16 @@ if (typeof window !== "undefined") {
     if (!isExtensionLog) {
       originalLog.apply(console, args);
     }
-  };
+  } as any;
 
   // 6. Suppress THREE.Clock deprecation warning from react-three-fiber
   const originalInfo = console.info;
-  console.info = function(...args: any[]) {
+  console.info = function(this: any, ...args: any[]): void {
     const message = args.map(arg => String(arg)).join(" ");
     if (!message.includes("THREE.Clock") && !message.includes("THREE.Timer")) {
       originalInfo.apply(console, args);
     }
-  };
+  } as any;
 }
 
 // ── Theme: apply before first paint to prevent flash ──────────
