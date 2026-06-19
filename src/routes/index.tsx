@@ -22,9 +22,9 @@ const Contact    = lazy(() => import("@/components/sections/Contact").then(m => 
  */
 const SITE_URL = (import.meta.env.VITE_SITE_URL as string | undefined) ?? "";
 
-const TITLE = "Mostafa Samir — Full-Stack .NET & React Developer";
+const TITLE = "Mostafa Samir — Full-Stack .NET & Angular Developer";
 const DESCRIPTION =
-  "Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications. Based in Tanta, Egypt — working globally.";
+  "Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and Angular/TypeScript applications. Based in Tanta, Egypt — working globally.";
 const CANONICAL = `${SITE_URL}/`;
 const OG_IMAGE = `${SITE_URL}/MS.jpg`;
 
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: "Mostafa Samir, Full-Stack Developer, .NET 8, ASP.NET Core, C#, React, TypeScript, SQL Server, Microservices, Egypt" },
+      { name: "keywords", content: "Mostafa Samir, Full-Stack Developer, .NET 8, ASP.NET Core, C#, Angular, TypeScript, SQL Server, Microservices, Egypt, مطور ويب مصري, مطور Angular, مطور ASP.NET Core, مطوّر برمجيات مصر, برمجة مواقع مصر, تطوير تطبيقات ويب, مطور .NET مصر, توظيف مطور ويب, مطور Full Stack مصري, مطور طنطا" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: CANONICAL },
@@ -65,7 +65,7 @@ export const Route = createFileRoute("/")({
             addressLocality: "Tanta",
             addressCountry: "EG",
           },
-          knowsAbout: [".NET 8", "ASP.NET Core", "C#", "React", "TypeScript", "SQL Server", "Microservices"],
+          knowsAbout: [".NET 8", "ASP.NET Core", "C#", "Angular", "TypeScript", "SQL Server", "Microservices", "Clean Architecture", "EF Core"],
           sameAs: [
             "https://github.com/Mostafa-SAID7",
             "https://www.linkedin.com/in/mostafasamirsaid",

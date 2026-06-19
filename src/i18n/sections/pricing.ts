@@ -55,9 +55,9 @@ export const pricingEN = {
       price: "$1,499",
       period: "starting at",
       description:
-        "React frontend + ASP.NET Core 8 backend — production-ready with auth, database, and CI/CD.",
+        "Angular frontend + ASP.NET Core 8 backend — production-ready with auth, database, and CI/CD.",
       features: [
-        "React + ASP.NET Core 8 API",
+        "Angular + ASP.NET Core 8 API",
         "PostgreSQL / SQL Server",
         "JWT auth & role-based access",
         "CI/CD via GitHub Actions",
@@ -181,9 +181,9 @@ export const pricingAR = {
       price: "$1,499",
       period: "ابتداءً من",
       description:
-        "واجهة React + خلفية ASP.NET Core 8 — جاهز للإنتاج مع مصادقة وقاعدة بيانات وـCI/CD.",
+        "واجهة Angular + خلفية ASP.NET Core 8 — جاهز للإنتاج مع مصادقة وقاعدة بيانات وـCI/CD.",
       features: [
-        "React + ASP.NET Core 8 API",
+        "Angular + ASP.NET Core 8 API",
         "PostgreSQL / SQL Server",
         "مصادقة JWT وصلاحيات مبنية على الدور",
         "CI/CD عبر GitHub Actions",
