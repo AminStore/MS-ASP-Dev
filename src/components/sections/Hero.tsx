@@ -46,11 +46,6 @@ export function Hero() {
             <HeroHeadline lines={t.hero.title} />
             <HeroLede text={t.hero.lede} />
             <HeroStack techs={t.hero.stack} />
-            <HeroCTA
-              hireMe={t.hero.hireMe}
-              resume={t.hero.resume}
-              whatsappUrl={t.hero.whatsappUrl}
-            />
           </HeroColumn>
         </div>
       </div>

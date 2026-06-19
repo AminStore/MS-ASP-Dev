@@ -18,7 +18,7 @@ export function HeroColumn({
   const colClass =
     side === "left"
       ? `md:col-span-${colSpan}`
-      : `md:col-span-${colSpan} lg:ps-8 lg:border-l lg:border-border/25`;
+      : `md:col-span-${colSpan} lg:px-10 lg:py-8 lg:rounded-2xl lg:border lg:border-border/20`;
 
   return (
     <motion.div
