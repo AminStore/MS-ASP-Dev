@@ -160,6 +160,8 @@
   /* Arabic: Switch all fonts to Cairo for RTL */
   html[dir="rtl"] body {
     font-family: var(--font-arabic);
+    /* Disable Latin-only OpenType features for Arabic */
+    font-feature-settings: normal;
   }
 
   /* Display (Serif) - English only */
@@ -200,6 +202,25 @@
     font-family: var(--font-arabic);
     font-weight: 400;
     letter-spacing: 0;
+  }
+
+  /*
+   * Arabic letter-spacing hard reset.
+   * Arabic glyphs connect to each other — any positive letter-spacing
+   * breaks those connections and makes text unreadable. Tailwind utility
+   * classes like tracking-[0.2em] are inline styles with high specificity,
+   * so we need !important here to override them in RTL mode.
+   * text-transform: uppercase is harmless on Arabic but wrong for labels,
+   * so we reset it too.
+   */
+  html[dir="rtl"] * {
+    letter-spacing: 0 !important;
+  }
+
+  html[dir="rtl"] .font-accent,
+  html[dir="rtl"] .font-title,
+  html[dir="rtl"] .font-display {
+    text-transform: none !important;
   }
 
   ::selection {
