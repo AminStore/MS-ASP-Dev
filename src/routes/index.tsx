@@ -11,6 +11,7 @@ const Skills     = lazy(() => import("@/components/sections/Skills").then(m => (
 const Projects   = lazy(() => import("@/components/sections/Projects").then(m => ({ default: m.Projects })));
 const Experience = lazy(() => import("@/components/sections/Experience").then(m => ({ default: m.Experience })));
 const Education  = lazy(() => import("@/components/sections/Education").then(m => ({ default: m.Education })));
+const Pricing    = lazy(() => import("@/components/sections/Pricing").then(m => ({ default: m.Pricing })));
 const Contact    = lazy(() => import("@/components/sections/Contact").then(m => ({ default: m.Contact })));
 
 /**
@@ -88,6 +89,7 @@ function Index() {
         <Projects />
         <Experience />
         <Education />
+        <Pricing />
         <Contact />
       </Suspense>
       <Footer />

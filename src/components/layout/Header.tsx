@@ -6,7 +6,7 @@ import { FONTS, COLORS, COMPONENTS } from "@/styles/theme";
 import { ThemeToggle, LocaleToggle } from "./Toggles";
 import { useActiveSection } from "@/hooks/use-active-section";
 
-const SECTIONS = ["about", "skills", "projects", "experience", "education", "contact"] as const;
+const SECTIONS = ["about", "skills", "projects", "pricing", "experience", "education", "contact"] as const;
 
 export function Header() {
   const t = useT();
