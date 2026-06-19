@@ -18,15 +18,15 @@ function Particles() {
     return { positions: p, count: c };
   }, []);
 
-  useFrame(({ mouse, clock }) => {
+  useFrame(({ clock }) => {
     if (!ref.current) return;
     
     // Get elapsed time from clock
     const t = clock.getElapsedTime();
     
     // Optimize: Use cheaper calculations
-    ref.current.rotation.y = (t * 0.02 + mouse.x * 0.15) * 0.5; // Reduced speed
-    ref.current.rotation.x = (-t * 0.01 + mouse.y * 0.1) * 0.5;
+    ref.current.rotation.y = t * 0.02 * 0.5; // Reduced speed
+    ref.current.rotation.x = -t * 0.01 * 0.5;
   });
 
   const color = theme === "dark" ? "#f5f3ee" : "#0d0d0d";
