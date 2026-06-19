@@ -50,6 +50,24 @@ export const pricingEN = {
       highlighted: true,
     },
     {
+      id: "api-backend",
+      name: "Backend API",
+      price: "$599",
+      period: "starting at",
+      description:
+        "A clean, documented ASP.NET Core REST API with auth, EF Core database, Swagger docs — production-ready.",
+      features: [
+        "ASP.NET Core 8 REST API",
+        "EF Core + SQL Server / PostgreSQL",
+        "JWT auth & role-based access",
+        "Swagger / OpenAPI documentation",
+        "Unit + integration tests",
+        "Azure or VPS deployment",
+      ],
+      cta: "Let's talk",
+      highlighted: false,
+    },
+    {
       id: "fullstack",
       name: "Full Stack App",
       price: "$1,499",
@@ -107,7 +125,7 @@ export const pricingEN = {
   faq: [
     {
       q: "Are these fixed prices or estimates?",
-      a: "The Landing Page, 5-Page Site, and Code Audit are fixed. Full Stack projects are scoped after a short discovery call — $1,499 is the floor, not a guess.",
+      a: "The Landing Page, 5-Page Site, Code Audit, and Backend API are fixed. Full Stack projects are scoped after a short discovery call — $1,499 is the floor, not a guess.",
     },
     {
       q: "Do you work with clients outside Egypt?",
@@ -128,10 +146,10 @@ export const pricingAR = {
   eyebrow: "الأسعار",
   title: "خطط واضحة. بلا مفاجآت.",
   subtitle:
-    "باقات بسعر ثابت لأكثر أنواع المشاريع شيوعاً. هل مشروعك خارج القائمة؟ تحدّث إليّ.",
+    "باقات بسعر ثابت لأكثر أنواع المشاريع شيوعاً. مشروعك خارج القائمة؟ تحدّث معايا.",
   viewAll: "عرض جميع الخطط",
   cta: "ابدأ الآن",
-  ctaTalk: "تحدّث إليّ",
+  ctaTalk: "تحدّث معايا",
   popular: "الأكثر طلباً",
   starting: "ابتداءً من",
   oneTime: "مرة واحدة",
@@ -176,6 +194,24 @@ export const pricingAR = {
       highlighted: true,
     },
     {
+      id: "api-backend",
+      name: "Backend API",
+      price: "$599",
+      period: "ابتداءً من",
+      description:
+        "REST API نظيف وموثَّق بـ ASP.NET Core مع مصادقة وقاعدة بيانات EF Core ومستندات Swagger — جاهز للإنتاج.",
+      features: [
+        "ASP.NET Core 8 REST API",
+        "EF Core + SQL Server / PostgreSQL",
+        "مصادقة JWT وصلاحيات RBAC",
+        "توثيق Swagger / OpenAPI",
+        "اختبارات وحدة وتكامل",
+        "نشر على Azure أو VPS",
+      ],
+      cta: "تحدّث معايا",
+      highlighted: false,
+    },
+    {
       id: "fullstack",
       name: "تطبيق Full Stack",
       price: "$1,499",
@@ -190,7 +226,7 @@ export const pricingAR = {
         "نشر على Azure أو VPS",
         "دعم شهر بعد الإطلاق",
       ],
-      cta: "تحدّث إليّ",
+      cta: "تحدّث معايا",
       highlighted: false,
     },
     {
@@ -233,11 +269,11 @@ export const pricingAR = {
   faq: [
     {
       q: "هل هذه أسعار ثابتة أم تقديرية؟",
-      a: "صفحة الهبوط، وموقع ٥ صفحات، ومراجعة الكود أسعارها ثابتة. تُحدَّد مشاريع Full Stack بعد مكالمة استكشافية — $1,499 هو الحد الأدنى.",
+      a: "صفحة الهبوط، وموقع ٥ صفحات، ومراجعة الكود، وBackend API أسعارها ثابتة. تُحدَّد مشاريع Full Stack بعد مكالمة استكشافية — $1,499 هو الحد الأدنى.",
     },
     {
       q: "هل تعمل مع عملاء خارج مصر؟",
-      a: "نعم — معظم عملائي عن بُعد. أعمل بشكل غير متزامن عبر المناطق الزمنية وأتاح عبر البريد ومكالمات الفيديو.",
+      a: "أيوه — معظم عملائي عن بُعد. بشتغل بشكل غير متزامن عبر المناطق الزمنية، ومتاح على البريد الإلكتروني ومكالمات الفيديو.",
     },
     {
       q: "ما طرق الدفع المقبولة؟",
@@ -245,7 +281,7 @@ export const pricingAR = {
     },
     {
       q: "هل يمكنني الجمع بين الباقات؟",
-      a: "بالطبع. إضافة خطة الصيانة إلى أي تسليم تكلف $99/شهر وتبدأ بعد الإطلاق.",
+      a: "بالطبع. إضافة خطة الصيانة إلى أي تسليم بتكلف $99/شهر وبتبدأ بعد الإطلاق.",
     },
   ],
 };
