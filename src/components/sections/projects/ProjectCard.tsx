@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
@@ -9,7 +10,7 @@ interface ProjectCardProps extends Omit<Project, "role" | "body"> {
   delay?: number;
 }
 
-export function ProjectCard({
+export const ProjectCard = memo(function ProjectCard({
   slug,
   category,
   name,
@@ -92,4 +93,4 @@ export function ProjectCard({
       </Link>
     </motion.div>
   );
-}
+});

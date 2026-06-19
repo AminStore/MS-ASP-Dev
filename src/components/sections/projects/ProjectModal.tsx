@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import { FONTS, COLORS, COMPONENTS } from "@/styles/theme";
 import { ProjectTable } from "./ProjectTable";
@@ -23,16 +23,20 @@ export function ProjectModal({
   const [search, setSearch] = useState("");
   const [modalFilter, setModalFilter] = useState(allLabel);
 
-  const filteredItems = allItems.filter((p) => {
+  // Memoized so filtering only re-runs when search/filter actually changes,
+  // not on every parent re-render or unrelated state update.
+  const filteredItems = useMemo(() => {
     const q = search.toLowerCase();
-    const catMatch = modalFilter === allLabel || p.category === modalFilter;
-    const textMatch =
-      !q ||
-      p.name.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q) ||
-      p.summary.toLowerCase().includes(q);
-    return catMatch && textMatch;
-  });
+    return allItems.filter((p) => {
+      const catMatch = modalFilter === allLabel || p.category === modalFilter;
+      const textMatch =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q);
+      return catMatch && textMatch;
+    });
+  }, [allItems, search, modalFilter, allLabel]);
 
   useEffect(() => {
     if (!isOpen) return;
