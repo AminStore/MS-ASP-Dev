@@ -3,8 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 
 import { initializeExtensionErrorSuppression } from "./lib/extensions";
-import { initializeTheme } from "./lib/theme";
-import { initializeLocale } from "./lib/locale";
+import { initializeTheme, initializeLocale } from "./lib/preferences";
 import { registerServiceWorker } from "./lib/service-worker";
 import { createQueryClient, getRouter } from "./router";
 

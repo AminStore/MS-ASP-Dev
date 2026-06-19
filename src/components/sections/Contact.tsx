@@ -49,20 +49,20 @@ export function Contact() {
           <div className="mt-10 space-y-3">
             <p className={`${FONTS.labelMd} ${COLORS.textMuted}`}>{t.contact.direct}</p>
             <a
-              href="mailto:m.ssaid356@gmail.com"
+              href={`mailto:${t.contact.emailAddress}`}
               className={`inline-flex items-center gap-2 ${FONTS.displaySm} underline decoration-border underline-offset-4 transition hover:decoration-foreground`}
             >
               <Mail className="size-5" />
-              m.ssaid356@gmail.com
+              {t.contact.emailAddress}
             </a>
           </div>
           <div className="mt-6 space-y-2">
             <a
-              href="tel:+201067358073"
+              href={`tel:${t.contact.phoneNumber}`}
               className={`inline-flex items-center gap-2 ${FONTS.displaySm} ${COLORS.textMuted} hover:${COLORS.textBase} transition`}
             >
               <Phone className="size-5" />
-              +201067358073
+              {t.contact.phoneNumber}
             </a>
           </div>
         </div>

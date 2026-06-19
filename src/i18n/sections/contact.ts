@@ -1,0 +1,31 @@
+export const contactEN = {
+  eyebrow: "Contact",
+  title: "Tell me about the system.",
+  lede: "I take on a handful of engagements each year — usually greenfield ASP.NET Core systems or rescues of struggling .NET codebases. Send a short note about what you're building, your current stack, and a realistic timeline.",
+  name: "Your name",
+  email: "Email",
+  message: "What are you building? What's the stack today?",
+  send: "Send note",
+  sending: "Sending…",
+  sent: "Thanks — I'll reply within two business days.",
+  error: "Something went wrong. Try again or email directly.",
+  direct: "Or write directly:",
+  emailAddress: "m.ssaid356@gmail.com",
+  phoneNumber: "+201067358073",
+};
+
+export const contactAR = {
+  eyebrow: "تواصل",
+  title: "حدّثني عن النظام.",
+  lede: "أعمل على حفنة من الارتباطات سنوياً — عادةً أنظمة ‎ASP.NET Core‎ جديدة، أو إنقاذ قواعد كود ‎.NET‎ متعثّرة. اكتب لي عن مشروعك، والمنصّة الحالية، ومدى زمنه الواقعي.",
+  name: "اسمك",
+  email: "البريد الإلكتروني",
+  message: "ماذا تبني؟ وما المنصّة الحالية؟",
+  send: "إرسال",
+  sending: "جارٍ الإرسال…",
+  sent: "شكراً — سأردّ خلال يومَي عمل.",
+  error: "حدث خطأ. أعد المحاولة أو راسلني مباشرة.",
+  direct: "أو راسل مباشرة:",
+  emailAddress: "m.ssaid356@gmail.com",
+  phoneNumber: "+201067358073",
+};

@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { useEffect } from "react";
-
-export type Theme = "light" | "dark";
-export type Locale = "en" | "ar";
+import {
+  type Theme,
+  type Locale,
+  applyPreferencesToDocument,
+} from "../lib/preferences";
 
 type State = {
   theme: Theme;
@@ -13,31 +15,17 @@ type State = {
   toggleLocale: () => void;
 };
 
-function applyToDocument(theme: Theme, locale: Locale) {
-  if (typeof document === "undefined") return;
-  const root = document.documentElement;
-  root.classList.toggle("dark", theme === "dark");
-  root.setAttribute("lang", locale);
-  root.setAttribute("dir", locale === "ar" ? "rtl" : "ltr");
-  try {
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("locale", locale);
-  } catch {
-    /* ignore */
-  }
-}
-
 export const usePreferences = create<State>((set, get) => ({
   theme: "light",
   locale: "en",
   setTheme: (theme) => {
     set({ theme });
-    applyToDocument(theme, get().locale);
+    applyPreferencesToDocument(theme, get().locale);
   },
   toggleTheme: () => get().setTheme(get().theme === "dark" ? "light" : "dark"),
   setLocale: (locale) => {
     set({ locale });
-    applyToDocument(get().theme, locale);
+    applyPreferencesToDocument(get().theme, locale);
   },
   toggleLocale: () => get().setLocale(get().locale === "en" ? "ar" : "en"),
 }));
