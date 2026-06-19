@@ -10,35 +10,93 @@ import "./styles.css";
 // Browser extensions (Redux DevTools, React DevTools, etc.) may try to
 // communicate with content scripts that don't exist. Suppress these harmless errors.
 if (typeof window !== "undefined") {
-  // Suppress unhandledrejection events
+  // 1. Suppress runtime.lastError (extension system errors)
+  const extensionErrorPatterns = [
+    "Receiving end does not exist",
+    "Could not establish connection",
+    "message port closed",
+    "useCache"
+  ];
+
+  const isExtensionError = (str: string): boolean => {
+    const msg = String(str).toLowerCase();
+    return extensionErrorPatterns.some(pattern => msg.includes(pattern.toLowerCase()));
+  };
+
+  // Override chrome.runtime.lastError handling if available
+  if (typeof (window as any).chrome !== "undefined" && (window as any).chrome?.runtime) {
+    const originalLastError = Object.getOwnPropertyDescriptor(
+      (window as any).chrome.runtime,
+      "lastError"
+    );
+    Object.defineProperty((window as any).chrome.runtime, "lastError", {
+      get() {
+        return originalLastError?.get?.call(this);
+      },
+      set() {
+        // Ignore setting lastError
+      },
+      configurable: true,
+    });
+  }
+
+  // 2. Suppress unhandledrejection events
   window.addEventListener("unhandledrejection", (event) => {
     const reason = event.reason;
     const message = reason?.message || String(reason);
     
-    if (
-      message.includes("Receiving end does not exist") ||
-      message.includes("Could not establish connection")
-    ) {
+    if (isExtensionError(message)) {
       event.preventDefault();
     }
   });
 
-  // Also suppress via console.error override for extension errors that don't trigger unhandledrejection
+  // 3. Suppress error events from extensions (capture phase)
+  window.addEventListener("error", (event) => {
+    const message = event.message || String(event);
+    
+    if (isExtensionError(message)) {
+      event.preventDefault();
+      return true;
+    }
+  }, true);
+
+  // 4. Intercept console methods to suppress extension errors
   const originalError = console.error;
+  const originalWarn = console.warn;
+  
   console.error = function(...args: any[]) {
     const message = args.map(arg => String(arg)).join(" ");
-    
-    // Skip extension-related errors
-    if (
-      message.includes("Receiving end does not exist") ||
-      message.includes("Could not establish connection") ||
-      message.includes("useCache")
-    ) {
-      return;
+    if (!isExtensionError(message)) {
+      originalError.apply(console, args);
     }
+  };
+
+  console.warn = function(...args: any[]) {
+    const message = args.map(arg => String(arg)).join(" ");
+    if (!isExtensionError(message) && !message.includes("THREE.Clock")) {
+      originalWarn.apply(console, args);
+    }
+  };
+
+  // 5. Suppress extension-related console logs (non-errors)
+  const originalLog = console.log;
+  console.log = function(...args: any[]) {
+    const message = args.map(arg => String(arg)).join(" ");
     
-    // Call original for other errors
-    originalError.apply(console, args);
+    // Skip extension framework logs
+    const extensionLogs = [
+      "[ExtensionPerf]",
+      "[ChromePolyfill]",
+      "Content Script",
+      "Initializing",
+      "JSHeapSnapshot",
+      "Content loaded"
+    ];
+    
+    const isExtensionLog = extensionLogs.some(pattern => message.includes(pattern));
+    if (!isExtensionLog) {
+      originalLog.apply(console, args);
+    }
   };
 }
 
