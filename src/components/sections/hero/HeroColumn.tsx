@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { EASE } from "@/styles/theme";
+import { EASE, BORDERS } from "@/styles/theme";
 import type { ReactNode } from "react";
 
 interface HeroColumnProps {
@@ -18,7 +18,7 @@ export function HeroColumn({
   const colClass =
     side === "left"
       ? `md:col-span-${colSpan}`
-      : `md:col-span-${colSpan} lg:px-10 lg:py-8 lg:rounded-2xl lg:border lg:border-border/20`;
+      : `md:col-span-${colSpan} lg:px-10 lg:py-8 lg:${BORDERS.rounded2xl} lg:border lg:border-border/20`;
 
   return (
     <motion.div

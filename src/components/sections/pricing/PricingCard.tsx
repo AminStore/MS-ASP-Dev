@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
-import { FONTS, COLORS, BORDERS, ANIMATIONS } from "@/styles/theme";
+import { FONTS, COLORS, BORDERS, ANIMATIONS, COMPONENTS } from "@/styles/theme";
 
 export interface Plan {
   id: string;
@@ -37,7 +37,7 @@ export const PricingCard = memo(function PricingCard({
     >
       <div
         className={[
-          "relative flex w-full flex-col gap-6 rounded-2xl border p-7 transition-all duration-300",
+          `relative flex w-full flex-col gap-6 ${BORDERS.rounded2xl} border p-5 sm:p-7 transition-all duration-300`,
           highlighted
             ? "border-foreground bg-foreground text-background shadow-2xl shadow-foreground/20 scale-[1.02]"
             : "border-border/50 bg-card/40 hover:bg-card/70 hover:border-border",
@@ -48,7 +48,7 @@ export const PricingCard = memo(function PricingCard({
           <div className="absolute -top-3 start-1/2 -translate-x-1/2 rtl:translate-x-1/2">
             <span
               className={[
-                `inline-flex items-center rounded-full px-3 py-1 ${FONTS.labelXs}`,
+                `inline-flex items-center ${BORDERS.roundedFull} px-3 py-1 ${FONTS.labelXs}`,
                 highlighted
                   ? "bg-background text-foreground"
                   : "bg-foreground text-background",
@@ -85,10 +85,7 @@ export const PricingCard = memo(function PricingCard({
 
         {/* Divider */}
         <div
-          className={[
-            "h-px",
-            highlighted ? "bg-background/20" : "bg-border/60",
-          ].join(" ")}
+          className={highlighted ? "h-px bg-background/20" : "h-px bg-border/60"}
         />
 
         {/* Description */}
@@ -128,7 +125,7 @@ export const PricingCard = memo(function PricingCard({
           type="button"
           onClick={onCta}
           className={[
-            `mt-2 inline-flex h-11 w-full items-center justify-center rounded-full ${FONTS.buttonSm} transition-all duration-200`,
+            `mt-2 inline-flex h-11 w-full items-center justify-center ${BORDERS.roundedFull} ${FONTS.buttonSm} transition-all duration-200`,
             highlighted
               ? "bg-background text-foreground hover:bg-background/90"
               : "border border-foreground bg-transparent hover:bg-foreground hover:text-background",
