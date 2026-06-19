@@ -73,7 +73,10 @@ if (typeof window !== "undefined") {
 
   console.warn = function(...args: any[]) {
     const message = args.map(arg => String(arg)).join(" ");
-    if (!isExtensionError(message) && !message.includes("THREE.Clock")) {
+    const hasThreeClockWarning = message.includes("THREE.Clock") || 
+                                 message.includes("THREE.Timer") ||
+                                 message.includes("deprecated");
+    if (!isExtensionError(message) && !hasThreeClockWarning) {
       originalWarn.apply(console, args);
     }
   };
@@ -96,6 +99,16 @@ if (typeof window !== "undefined") {
     const isExtensionLog = extensionLogs.some(pattern => message.includes(pattern));
     if (!isExtensionLog) {
       originalLog.apply(console, args);
+    }
+  };
+
+  // 6. Suppress THREE.Clock deprecation warning from react-three-fiber
+  // This is a library-level deprecation that we can't directly control
+  const originalInfo = console.info;
+  console.info = function(...args: any[]) {
+    const message = args.map(arg => String(arg)).join(" ");
+    if (!message.includes("THREE.Clock") && !message.includes("THREE.Timer")) {
+      originalInfo.apply(console, args);
     }
   };
 }

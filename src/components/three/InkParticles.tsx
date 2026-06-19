@@ -6,7 +6,6 @@ import { usePreferences } from "@/store/preferences";
 function Particles() {
   const ref = useRef<THREE.Points>(null);
   const theme = usePreferences((s) => s.theme);
-  const timeRef = useRef(0);
 
   const { positions, count } = useMemo(() => {
     const c = 1000; // Reduced from 1400 for better performance
@@ -19,12 +18,11 @@ function Particles() {
     return { positions: p, count: c };
   }, []);
 
-  useFrame(({ mouse, delta }) => {
+  useFrame(({ mouse, clock }) => {
     if (!ref.current) return;
     
-    // Use delta time instead of elapsed time for smoother animations
-    timeRef.current += delta;
-    const t = timeRef.current;
+    // Get elapsed time from clock
+    const t = clock.getElapsedTime();
     
     // Optimize: Use cheaper calculations
     ref.current.rotation.y = (t * 0.02 + mouse.x * 0.15) * 0.5; // Reduced speed
