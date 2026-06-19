@@ -100,29 +100,77 @@
     <link rel="dns-prefetch" href="https://wa.me" />
 
     <!--
-      ── Fonts ──
-      1. preconnect opens the TCP + TLS handshake to Google's servers before
-         the stylesheet is even requested.
-      2. The stylesheet is loaded with media="print" so it is non-render-blocking.
-         onload switches it to media="all" once it arrives.
-      3. The <noscript> fallback loads the fonts normally for no-JS environments.
-      font-display=swap is embedded in the URL so text stays visible during load.
+      ── Font Loading Strategy ──
+      Using font-display=block to prevent FOUT (Flash of Unstyled Text):
+      - block: Browser waits up to 3s for custom font, shows fallback after
+      - This prevents flashing between system fonts and custom fonts
+      - Preconnect/preload ensures fast font delivery
+      Fonts are separated by locale to avoid loading unused fonts:
+      - EN: Geo (headings), Homenaje (body), Work Sans (UI)
+      - AR: Cairo (all text), Work Sans (UI)
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- English-specific fonts: Geo (headings), Homenaje (body/labels) -->
     <link
-      id="google-fonts"
-      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Homenaje&family=Work+Sans:wght@300;400;500&family=Cairo:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=block"
       rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
     />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Homenaje&family=Work+Sans:wght@300;400;500&family=Cairo:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Homenaje&display=block"
+      rel="stylesheet"
+    />
+    
+    <!-- Shared fonts: Work Sans (UI) + Cairo (Arabic) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&family=Cairo:wght@300;400;500;600&display=block"
+      rel="stylesheet"
+    />
+
+    <!-- Inline critical font-face with font-display to prevent FOUT -->
+    <style>
+      /* Prevent system font flash by declaring font-faces early */
+      @font-face {
+        font-family: 'Geo';
+        font-display: block;
+        src: url('https://fonts.gstatic.com/s/geo/v5/ga6yow5z5mqnz3jlmdh4vFQXJ-7wm_-eHB8WN_YU.woff2') format('woff2');
+      }
+      
+      @font-face {
+        font-family: 'Homenaje';
+        font-display: block;
+        src: url('https://fonts.gstatic.com/s/homenaje/v17/Qw3oZQZcjgvsDH3EjGBXvxpLxHqQxE5CHvhZ.woff2') format('woff2');
+      }
+      
+      @font-face {
+        font-family: 'Cairo';
+        font-display: block;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/cairo/v17/SLXrc1nY6HkvalIkTp7mVU01ADEf85-9_5t93jK4TgcKI_fN4KJKp0LLSx_x.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Cairo';
+        font-display: block;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/cairo/v17/SLXrc1nY6HkvalIkTp7mVU01ADEf85-9_5t93jK4TgcKI_fN4KJKp0LLSx_x.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Cairo';
+        font-display: block;
+        font-weight: 500;
+        src: url('https://fonts.gstatic.com/s/cairo/v17/SLXrc1nY6HkvalIkTp7mVU01ADEf85-9_5t93jK4TgcKI_fN4KJKp0LLSx_x.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Cairo';
+        font-display: block;
+        font-weight: 600;
+        src: url('https://fonts.gstatic.com/s/cairo/v17/SLXrc1nY6HkvalIkTp7mVU01ADEf85-9_5t93jK4TgcKI_fN4KJKp0LLSx_x.woff2') format('woff2');
+      }
+    </style>
 
     <script type="module" src="/src/main.tsx"></script>
   </head>

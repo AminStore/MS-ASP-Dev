@@ -151,28 +151,39 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* English: Use English font stack by default */
+  html[lang="en"] body,
+  html:not([dir="rtl"]) body {
+    font-family: var(--font-sans);
+  }
+
+  /* Arabic: Switch all fonts to Cairo for RTL */
   html[dir="rtl"] body {
     font-family: var(--font-arabic);
   }
 
+  /* Display (Serif) - English only */
   .font-display {
     font-family: var(--font-serif);
     font-weight: 400;
     letter-spacing: -0.01em;
   }
 
+  /* Title (Geo) - English; Cairo for Arabic */
   .font-title {
     font-family: var(--font-title);
     font-weight: 400;
     letter-spacing: -0.02em;
   }
 
+  /* Accent (Homenaje) - English; Cairo for Arabic */
   .font-accent {
     font-family: var(--font-accent);
     font-weight: 400;
     letter-spacing: 0.02em;
   }
 
+  /* RTL overrides: All decorative fonts become Cairo for Arabic */
   html[dir="rtl"] .font-display {
     font-family: var(--font-arabic);
     font-weight: 500;
