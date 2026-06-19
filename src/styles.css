@@ -272,36 +272,39 @@
   }
 }
 
-/* ---------- Scrollbars ---------- */
+/* ── Scrollbar — single source of truth ───────────────────
+   All scrollbar values live here as CSS vars.
+   The .scrollbar-slim utility only overrides the vars it needs;
+   it never repeats a rule that already exists in the base.
+   ───────────────────────────────────────────────────────── */
+:root {
+  --sb-size:        10px;
+  --sb-thumb:       color-mix(in oklab, var(--color-foreground) 22%, transparent);
+  --sb-thumb-hover: color-mix(in oklab, var(--color-foreground) 55%, transparent);
+  --sb-border:      2px solid var(--color-background);
+  --sb-radius:      999px;
+}
+
 html {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--color-foreground) 35%, transparent) transparent;
+  scrollbar-color: var(--sb-thumb) transparent;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+::-webkit-scrollbar              { width: var(--sb-size); height: var(--sb-size); }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-corner       { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background-color: color-mix(in oklab, var(--color-foreground) 22%, transparent);
-  border: 2px solid var(--color-background);
-  border-radius: 999px;
-  transition: background-color 0.2s ease;
+  background-color: var(--sb-thumb);
+  border:           var(--sb-border);
+  border-radius:    var(--sb-radius);
+  transition:       background-color 0.2s ease;
 }
-::-webkit-scrollbar-thumb:hover {
-  background-color: color-mix(in oklab, var(--color-foreground) 55%, transparent);
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
+::-webkit-scrollbar-thumb:hover  { background-color: var(--sb-thumb-hover); }
 
-.scrollbar-slim::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.scrollbar-slim::-webkit-scrollbar-thumb {
-  border-width: 1px;
+/* Slim variant — overrides vars only, zero rule duplication */
+.scrollbar-slim {
+  --sb-size:   6px;
+  --sb-border: 1px solid var(--color-background);
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) transparent;
 }
