@@ -11,9 +11,9 @@
 
 /*
  * Paper & Ink editorial design system.
- * Headings: Jim Nightshade (font-title).
+ * Headings: Geo (font-title) for English.
  * Body / labels: Italianno (font-accent).
- * Arabic override: Tajawal replaces both for RTL.
+ * Arabic override: Cairo replaces all fonts for RTL.
  * Base UI: Work Sans (--font-sans, default body).
  */
 
@@ -60,8 +60,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-arabic: "Tajawal", "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-title: "Jim Nightshade", cursive;
+  --font-arabic: "Cairo", "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-title: "Geo", cursive;
   --font-accent: "Italianno", cursive;
 }
 
