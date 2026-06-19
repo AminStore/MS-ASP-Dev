@@ -1,9 +1,11 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 
 /**
- * ProjectThumbnail — generated gradient image for every project.
- * Wrapped in React.memo — props are stable strings, so re-renders
- * from parent filter/sort state changes produce no work here.
+ * ProjectThumbnail — shows a real image when available, gracefully falls
+ * back to a generated category-gradient SVG if the image URL is missing
+ * or fails to load (404, network error, etc.).
+ * Wrapped in React.memo — props are stable strings so parent filter/sort
+ * re-renders produce no work here.
  */
 
 type Props = {
@@ -22,9 +24,9 @@ type Config = {
 };
 
 const CONFIGS: Record<string, Config> = {
-  MVC: { g1: "#c97c4a", g2: "#4e2610", textColor: "rgba(255,238,215,0.9)", pattern: "grid" },
-  "REST API": { g1: "#3d6fa8", g2: "#112a50", textColor: "rgba(215,235,255,0.9)", pattern: "lines" },
-  Microservices: { g1: "#2e9469", g2: "#0c3a25", textColor: "rgba(205,245,228,0.9)", pattern: "dots" },
+  MVC:          { g1: "#c97c4a", g2: "#4e2610", textColor: "rgba(255,238,215,0.9)", pattern: "grid" },
+  "REST API":   { g1: "#3d6fa8", g2: "#112a50", textColor: "rgba(215,235,255,0.9)", pattern: "lines" },
+  Microservices:{ g1: "#2e9469", g2: "#0c3a25", textColor: "rgba(205,245,228,0.9)", pattern: "dots" },
   "Full Stack": { g1: "#7c52c2", g2: "#2a1065", textColor: "rgba(232,215,255,0.9)", pattern: "diagonal" },
 };
 
@@ -67,6 +69,55 @@ function PatternDef({ kind, id }: { kind: Config["pattern"]; id: string }) {
   );
 }
 
+function GradientSVG({ name, category, slug }: { name: string; category: string; slug: string }) {
+  const cfg = CONFIGS[category] ?? FALLBACK;
+  const initials = getInitials(name);
+  const gradId = `pt-grad-${slug}`;
+  const patId  = `pt-pat-${slug}`;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      viewBox="0 0 400 260"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor={cfg.g1} />
+          <stop offset="100%" stopColor={cfg.g2} />
+        </linearGradient>
+        <PatternDef kind={cfg.pattern} id={patId} />
+      </defs>
+      <rect width="400" height="260" fill={`url(#${gradId})`} />
+      <rect width="400" height="260" fill={`url(#${patId})`} />
+      <text
+        x="200" y="148"
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize="88"
+        fontWeight="300"
+        letterSpacing="-2"
+        fill={cfg.textColor}
+        style={{ fontFamily: "Georgia, serif" }}
+      >
+        {initials}
+      </text>
+      <text
+        x="20" y="240"
+        fontSize="11"
+        fontWeight="500"
+        letterSpacing="2"
+        fill="rgba(255,255,255,0.4)"
+        style={{ fontFamily: "system-ui, sans-serif", textTransform: "uppercase" }}
+      >
+        {category.toUpperCase()}
+      </text>
+    </svg>
+  );
+}
+
 export const ProjectThumbnail = memo(function ProjectThumbnail({
   name,
   category,
@@ -74,61 +125,22 @@ export const ProjectThumbnail = memo(function ProjectThumbnail({
   imageUrl,
   className = "",
 }: Props) {
-  if (imageUrl) {
-    return (
-      <div className={`relative overflow-hidden ${className}`}>
-        <img src={imageUrl} alt={name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-      </div>
-    );
-  }
-
-  const cfg = CONFIGS[category] ?? FALLBACK;
-  const initials = getInitials(name);
-  const gradId = `pt-grad-${slug}`;
-  const patId = `pt-pat-${slug}`;
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 400 260"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden
-      >
-        <defs>
-          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={cfg.g1} />
-            <stop offset="100%" stopColor={cfg.g2} />
-          </linearGradient>
-          <PatternDef kind={cfg.pattern} id={patId} />
-        </defs>
-        <rect width="400" height="260" fill={`url(#${gradId})`} />
-        <rect width="400" height="260" fill={`url(#${patId})`} />
-        <text
-          x="200" y="148"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontSize="88"
-          fontWeight="300"
-          letterSpacing="-2"
-          fill={cfg.textColor}
-          style={{ fontFamily: "Georgia, serif" }}
-        >
-          {initials}
-        </text>
-        <text
-          x="20" y="240"
-          fontSize="11"
-          fontWeight="500"
-          letterSpacing="2"
-          fill="rgba(255,255,255,0.4)"
-          style={{ fontFamily: "system-ui, sans-serif", textTransform: "uppercase" }}
-        >
-          {category.toUpperCase()}
-        </text>
-      </svg>
+      {imageUrl && !imgError ? (
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <GradientSVG name={name} category={category} slug={slug} />
+      )}
     </div>
   );
 });
