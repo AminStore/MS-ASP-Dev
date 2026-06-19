@@ -59,16 +59,6 @@ export function HeroPhoto({
 
   return (
     <>
-      {/* Three.js background */}
-      {!reduced && (
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-50">
-          <ThreeErrorBoundary>
-            <Suspense fallback={null}>
-              <InkParticles />
-            </Suspense>
-          </ThreeErrorBoundary>
-        </div>
-      )}
       {/* Bottom fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background via-background/60 to-transparent" />
 

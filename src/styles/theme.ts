@@ -5,8 +5,8 @@
  */
 
 export const SPACING = {
-  section: "px-6 py-24 md:px-10 md:py-36",
-  cardPadding: "p-6 md:p-8",
+  section: "px-6 py-12 md:px-10 md:py-20",
+  cardPadding: "p-5 md:p-7",
   gap: "gap-6",
   largeGap: "gap-8",
   smallGap: "gap-3",
