@@ -23,22 +23,40 @@ if (typeof window !== "undefined") {
     return extensionErrorPatterns.some(pattern => msg.includes(pattern.toLowerCase()));
   };
 
-  // Override chrome.runtime.lastError handling if available
+  // Override chrome.runtime.lastError handling more aggressively
   if (typeof (window as any).chrome !== "undefined" && (window as any).chrome?.runtime) {
-    const originalLastError = Object.getOwnPropertyDescriptor(
-      (window as any).chrome.runtime,
-      "lastError"
-    );
-    Object.defineProperty((window as any).chrome.runtime, "lastError", {
-      get() {
-        return originalLastError?.get?.call(this);
-      },
-      set() {
-        // Ignore setting lastError
-      },
-      configurable: true,
-    });
+    try {
+      Object.defineProperty((window as any).chrome.runtime, "lastError", {
+        get() {
+          return null;
+        },
+        set() {
+          // Do nothing - suppress setting lastError
+        },
+        configurable: true,
+      });
+    } catch (e) {
+      // If we can't override, suppress the error
+    }
   }
+
+  // Intercept uncaught errors that extensions throw
+  const originalAddEventListener = window.addEventListener;
+  window.addEventListener = function(type: string, ...args: any[]) {
+    if (type === "error" || type === "unhandledrejection") {
+      const [listener, options] = args;
+      const wrappedListener = function(event: any) {
+        const message = event.message || event.reason?.message || String(event);
+        if (isExtensionError(message)) {
+          event.preventDefault?.();
+          return;
+        }
+        return listener.call(this, event);
+      };
+      return originalAddEventListener.call(this, type, wrappedListener, options);
+    }
+    return originalAddEventListener.call(this, type, ...args);
+  };
 
   // 2. Suppress unhandledrejection events
   window.addEventListener("unhandledrejection", (event) => {
@@ -93,7 +111,8 @@ if (typeof window !== "undefined") {
       "Content Script",
       "Initializing",
       "JSHeapSnapshot",
-      "Content loaded"
+      "Content loaded",
+      "Unchecked runtime.lastError"
     ];
     
     const isExtensionLog = extensionLogs.some(pattern => message.includes(pattern));
@@ -103,7 +122,6 @@ if (typeof window !== "undefined") {
   };
 
   // 6. Suppress THREE.Clock deprecation warning from react-three-fiber
-  // This is a library-level deprecation that we can't directly control
   const originalInfo = console.info;
   console.info = function(...args: any[]) {
     const message = args.map(arg => String(arg)).join(" ");
