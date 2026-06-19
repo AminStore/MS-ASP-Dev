@@ -110,12 +110,17 @@
       - AR: Cairo (all text), Work Sans (UI)
       The API handles all @font-face declarations and URL management dynamically.
     -->
+    <!-- Cairo is self-hosted — preload the Arabic subset so it's ready the moment
+         the user switches to AR. The EN fonts (Geo, Homenaje, Work Sans) still
+         come from Google Fonts. -->
+    <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <!-- Single Google Fonts API request with all required fonts and weights -->
+
+    <!-- English fonts only — Cairo is served locally via @font-face in styles.css -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Homenaje&family=Work+Sans:wght@300;400;500&family=Cairo:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Homenaje&family=Work+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
 
