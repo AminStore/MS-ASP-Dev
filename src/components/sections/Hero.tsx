@@ -36,8 +36,6 @@ export function Hero() {
             <HeroCTA
               hireMe={t.hero.hireMe}
               resume={t.hero.resume}
-              cta={t.hero.cta}
-              ctaSecondary={t.hero.ctaSecondary}
               whatsappUrl={t.hero.whatsappUrl}
             />
             <HeroStats stats={t.hero.stats} />
@@ -52,8 +50,6 @@ export function Hero() {
             <HeroCTA
               hireMe={t.hero.hireMe}
               resume={t.hero.resume}
-              cta={t.hero.cta}
-              ctaSecondary={t.hero.ctaSecondary}
               whatsappUrl={t.hero.whatsappUrl}
             />
             <HeroDivider delay={1.4} originSide="end" />

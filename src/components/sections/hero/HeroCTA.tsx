@@ -1,20 +1,16 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { COMPONENTS, EASE } from "@/styles/theme";
 
 interface HeroCTAProps {
   hireMe: string;
   resume: string;
-  cta: string;
-  ctaSecondary: string;
   whatsappUrl: string;
 }
 
 export function HeroCTA({
   hireMe,
   resume,
-  cta,
-  ctaSecondary,
   whatsappUrl,
 }: HeroCTAProps) {
   return (
@@ -44,21 +40,7 @@ export function HeroCTA({
         </a>
       </motion.div>
 
-      {/* Primary CTAs - bottom right */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.25, ease: EASE.out }}
-        className="flex flex-wrap items-center gap-4"
-      >
-        <a href="/#projects" className={`group ${COMPONENTS.buttonPrimary}`}>
-          {cta}
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
-        </a>
-        <a href="/#contact" className={COMPONENTS.buttonSecondary}>
-          {ctaSecondary}
-        </a>
-      </motion.div>
+
     </>
   );
 }
