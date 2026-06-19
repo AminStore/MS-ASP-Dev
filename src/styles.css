@@ -12,7 +12,7 @@
 /*
  * Paper & Ink editorial design system.
  * Headings: Geo (font-title) for English.
- * Body / labels: Italianno (font-accent).
+ * Body / labels: Homenaje (font-accent).
  * Arabic override: Cairo replaces all fonts for RTL.
  * Base UI: Work Sans (--font-sans, default body).
  */
@@ -62,7 +62,7 @@
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-arabic: "Cairo", "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-title: "Geo", cursive;
-  --font-accent: "Italianno", cursive;
+  --font-accent: "Homenaje", cursive;
 }
 
 :root {
